@@ -1,7 +1,7 @@
 #/bin/bash
 source ./common.sh
 
-cd ./${src_dir}
+cd ./${build_dir}
 #gdb ${gdb_param} ./vmlinux 
 gdb \
     -ex "add-auto-load-safe-path $(pwd)" \
