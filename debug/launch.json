@@ -1,0 +1,66 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/linux-4.15.7/build/vmlinux",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerServerAddress": "localhost:1234",
+            "targetArchitecture": "x64",
+            "customLaunchSetupCommands": [
+                {
+                    "description": "Set remote target",
+                    "text": "file ${workspaceFolder}/src/linux-4.15.7/build/vmlinux"
+                },
+                /*{
+                    "description": "Set remote target",
+                    "text": "target remote localhost:1234"
+                },
+                {
+                    "description": "break",
+                    "text": "break start_kernel"
+                },*/
+                /*{
+                    "description": "continue",
+                    "text": "continue"
+                },
+                {
+                    "description": "disconnect to overcome an gdb bug",
+                    "text": "disconnect"
+                },*/
+                {
+                    "description": "set arch i386:x86-64",
+                    "text": "set arch i386:x86-64"
+                },
+                {
+                    "description": "Connect again",
+                    "text": "target remote localhost:1234"
+                },
+            ],
+            "logging": {
+                "engineLogging": true,
+                "traceResponse": true
+            },
+
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+
+        
+    ]
+}
