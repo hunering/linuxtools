@@ -3,10 +3,7 @@ ABSOLUTE_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_
 dir_name=$(dirname $ABSOLUTE_PATH)
 echo "The scripth installer running at $dir_name"
 
-src_dir=../../../linux/src/linux
-#src_dir=../../../linux/src/linux-2.6.39
-build_dir=${src_dir}/build
-kernel_image=${build_dir}/arch/x86_64/boot/bzImage
+source ../common/common.sh
 initrd_image=./initrd.img-4.13.0-36-generic
 rootfs_image=../rootfs/busybox/rootfs.img
 hda_image=../rootfs/qemu/linux-0.2.img
