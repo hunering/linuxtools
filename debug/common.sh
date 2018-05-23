@@ -11,7 +11,15 @@ hdb_image=../rootfs/qemu/debian_wheezy_amd64_standard.qcow2
 
 gdb_param=
 dbg_serial=/tmp/dbgserial
-
+gdb_attach()
+{
+  gdb \
+    -ex "add-auto-load-safe-path $(pwd)" \
+    -ex "file ${build_dir}/vmlinux" \
+    -ex 'set arch i386:x86-64:intel' \
+    -ex 'target remote localhost:1234' \
+    -ex 'break start_kernel'    
+}
 #the reason that we split the gdb to two-round is because gdb has bug when processor architecture changed:
 #https://stackoverflow.com/questions/8662468/remote-g-packet-reply-is-too-long/34304137#34304137" 
 gdb_firstrun()
@@ -22,6 +30,21 @@ gdb_firstrun()
     -ex 'set arch i386:x86-64:intel' \
     -ex 'target remote localhost:1234' \
     -ex 'break start_kernel' \
+    -ex 'continue' \
+    -ex 'disconnect' \
+    -ex 'quit'
+}
+
+gdb_stop_at_entry()
+{
+  gdb \
+    -ex "add-auto-load-safe-path $(pwd)" \
+    -ex "file ${build_dir}/vmlinux" \
+    -ex 'set arch i386:x86-64:intel' \
+    -ex 'target remote localhost:1234' \
+    -ex 'break *0x1000000' \
+    -ex 'break *0x1000007' \
+    -ex 'break *0x100000c' \
     -ex 'continue' \
     -ex 'disconnect' \
     -ex 'quit'
@@ -38,6 +61,7 @@ gdb_secondrun()
 
 qemu_start()
 {
+  #-numa node,nodeid=0,cpus=0-3,mem=1000 -numa node,nodeid=1,cpus=4-7,mem=1000
   QEMU_START_COMMAND='qemu-system-x86_64 -no-kvm -kernel ${kernel_image} -hda ${hda_image} -hdb ${hdb_image}  -initrd ${rootfs_image}  -append "root=/dev/ram rdinit=/etc/init.d/rcS debug " -smp 1 -serial file:serial.out -display sdl -vga std -gdb tcp::1234'
 
   if [ $# -ne 1 ]
@@ -51,6 +75,9 @@ qemu_start()
       eval ${QEMU_START_COMMAND}' -S &'
       sleep 2s
       gdb_firstrun
+    elif [ $1 == '2' ]; then 
+      echo "start qemu, then break at start"
+      eval ${QEMU_START_COMMAND}' -S &'
     else 
       echo "start qemu and boot"
       eval ${QEMU_START_COMMAND}' &'
