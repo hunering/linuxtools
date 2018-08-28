@@ -11,6 +11,16 @@ hdb_image=../rootfs/qemu/debian_wheezy_amd64_standard.qcow2
 
 gdb_param=
 dbg_serial=/tmp/dbgserial
+
+gdb_load_kernel()
+{
+  gdb \
+    -ex "add-auto-load-safe-path $(pwd)" \
+    -ex "file ${build_dir}/vmlinux" \
+    -ex 'set arch i386:x86-64:intel' 
+}
+
+
 gdb_attach()
 {
   gdb \
@@ -62,7 +72,7 @@ gdb_secondrun()
 qemu_start()
 {
   #-numa node,nodeid=0,cpus=0-3,mem=1000 -numa node,nodeid=1,cpus=4-7,mem=1000
-  QEMU_START_COMMAND='qemu-system-x86_64 -no-kvm -kernel ${kernel_image} -hda ${hda_image} -hdb ${hdb_image}  -initrd ${rootfs_image}  -append "root=/dev/ram rdinit=/etc/init.d/rcS debug " -smp 1 -serial file:serial.out -display sdl -vga std -gdb tcp::1234'
+  QEMU_START_COMMAND='qemu-system-x86_64 -no-kvm -kernel ${kernel_image} -drive file=${hda_image},index=0,media=disk,format=raw -drive file=${hdb_image},index=1,media=disk,format=raw -initrd ${rootfs_image}  -append "root=/dev/ram rdinit=/etc/init.d/rcS debug " -smp 1 -serial file:serial.out -display sdl -vga std -gdb tcp::1234'
 
   if [ $# -ne 1 ]
   then
