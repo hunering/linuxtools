@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {            
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/include/linux",
+                "${workspaceFolder}/arch/x86/include",
+                "${workspaceFolder}/arch/x86/include/generated",
+                "${workspaceFolder}/build/include",
+                "${workspaceFolder}/build/include/generated",
+                "${workspaceFolder}/build/usr/include",
+                "${workspaceFolder}/build/arch/x86/include/generated"                                
+            ],
+            "defines": [],
+            "forcedInclude": [ "${workspaceFolder}/build/include/generated/autoconf.h" ],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [                   
+                    "${workspaceFolder}",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/include/linux",
+                    "${workspaceFolder}/arch/x86/include",
+                    "${workspaceFolder}/arch/x86/include/generated",
+                    "${workspaceFolder}/build/include",
+                    "${workspaceFolder}/build/include/generated",
+                    "${workspaceFolder}/build/usr/include",
+                    "${workspaceFolder}/build/arch/x86/include/generated"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
+}

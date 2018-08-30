@@ -1,0 +1,17 @@
+{
+    "git.ignoreLimitWarning": true,
+    "editor.fontSize": 18,
+    "files.associations": {
+        "debug.h": "c",
+        "array": "cpp",
+        "typeinfo": "cpp",
+        "vector": "c",
+        "hash_map": "c",
+        "hash_set": "c"
+    },
+    "http.proxy": "http://proxy-prc.intel.com:912",
+    "window.zoomLevel": 0.5,
+    "editor.tokenColorCustomizations": {
+        "comments": "#26be54"
+    },
+}
